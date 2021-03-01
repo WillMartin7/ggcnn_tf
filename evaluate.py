@@ -14,7 +14,7 @@ from dataset_processing.grasp import BoundingBoxes, detect_grasps
 
 # Networks to test.
 # NETWORK = 'data/networks/*'  # glob synatx to output network folders.
-NETWORK = 'content/ggcnn_tf/data/networks/*'
+NETWORK = 'ggcnn_tf/data/networks/*'
 EPOCH = None  # Specify epoch or None to test all.
 
 RAW_DATA_DIR = 'data/cornell'
@@ -114,8 +114,6 @@ def calculate_iou_matches(grasp_positions_out, grasp_angles_out, ground_truth_bb
 
 def run():
     global NO_GRASPS, VISUALISE_FAILURES, VISUALISE_SUCCESSES
-    
-    print "hello world"
 
     # Load the dataset data.
     model_folders = glob.glob(NETWORK)
