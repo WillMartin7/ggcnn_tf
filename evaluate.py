@@ -134,7 +134,7 @@ def run():
                 dataset_fn = dataset_fn[:-1]
 
         f = h5py.File(dataset_fn, 'r')
-        print(f)
+        print(f['test/img_id'])
 
         img_ids = np.array(f['test/img_id'])
         rgb_imgs = np.array(f['test/rgb'])
