@@ -88,7 +88,7 @@ def calculate_iou_matches(grasp_positions_out, grasp_angles_out, ground_truth_bb
     """
     succeeded = []
     failed = []
-    for i in range(3) #range(grasp_positions_out.shape[0]):
+    for i in range(3): #range(grasp_positions_out.shape[0]):
         grasp_position = grasp_positions_out[i, ].squeeze()
         grasp_angle = grasp_angles_out[i, :, :].squeeze()
 
