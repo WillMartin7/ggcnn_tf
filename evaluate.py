@@ -134,7 +134,6 @@ def run():
                 dataset_fn = dataset_fn[:-1]
 
         f = h5py.File(dataset_fn, 'r')
-        print(f['test/img_id'])
 
         img_ids = np.array(f['test/img_id'])
         rgb_imgs = np.array(f['test/rgb'])
@@ -169,7 +168,6 @@ def run():
                 input_data = np.load(input_data_fn)
                 model_output_data = model.predict(input_data)
                 grasp_positions_out = model_output_data[0]
-                print(grasp_positions_out)
                 grasp_angles_out = np.arctan2(model_output_data[2], model_output_data[1])/2.0
                 grasp_width_out = model_output_data[3] * 150.0
 
