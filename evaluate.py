@@ -134,10 +134,10 @@ def run():
                 dataset_fn = dataset_fn[:-1]
 
         f = h5py.File(dataset_fn, 'r')
+        print(f)
 
         img_ids = np.array(f['test/img_id'])
         rgb_imgs = np.array(f['test/rgb'])
-        print(rgb_imgs.shape)
         depth_imgs = np.array(f['test/depth_inpainted'])
         bbs_all = np.array(f['test/bounding_boxes'])
 
