@@ -1,1 +1,1 @@
-drive/MyDrive/ggcnn_tf/data/datasets/dataset_210301_0839.hdf5
+/content/drive/MyDrive/ggcnn_tf/data/datasets/dataset_210301_0839.hdf5
