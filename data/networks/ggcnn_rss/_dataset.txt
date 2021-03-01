@@ -1,1 +1,1 @@
-/home/douglas/dev/ae_grasp_prediction/data/datasets/dataset_rotated_width_zoom_171219_1516.hdf5
+ggcnn_tf/data/datasets/dataset_210228_2321.hdf5

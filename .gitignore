@@ -1,3 +1,4 @@
 _val_input.npy
 data/cornell/
 .DS_STORE
+__pycache__/
