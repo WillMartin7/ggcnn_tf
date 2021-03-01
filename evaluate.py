@@ -13,8 +13,8 @@ from skimage.filters import gaussian
 from dataset_processing.grasp import BoundingBoxes, detect_grasps
 
 # Networks to test.
-NETWORK = 'data/networks/*'  # glob synatx to output network folders.
-# NETWORK = 'content/ggcnn_tf/data/networks/*'
+# NETWORK = 'data/networks/*'  # glob synatx to output network folders.
+NETWORK = 'content/ggcnn_tf/data/networks/*'
 EPOCH = None  # Specify epoch or None to test all.
 
 RAW_DATA_DIR = 'data/cornell'
