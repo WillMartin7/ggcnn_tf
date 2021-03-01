@@ -23,7 +23,7 @@ WRITE_LOG = True
 LOGFILE = 'evaluation_output.txt'
 
 NO_GRASPS = 1  # Number of local maxima to check against ground truth grasps.
-VISUALISE_FAILURES = False
+VISUALISE_FAILURES = True
 VISUALISE_SUCCESSES = True
 
 _pos_grasp_pattern = os.path.join(RAW_DATA_DIR, 'pcd%04dcpos.txt')
