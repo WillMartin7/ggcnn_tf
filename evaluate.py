@@ -114,6 +114,8 @@ def calculate_iou_matches(grasp_positions_out, grasp_angles_out, ground_truth_bb
 
 def run():
     global NO_GRASPS, VISUALISE_FAILURES, VISUALISE_SUCCESSES
+    
+    print "hello world"
 
     # Load the dataset data.
     model_folders = glob.glob(NETWORK)
