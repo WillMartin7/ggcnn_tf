@@ -164,7 +164,8 @@ def run():
                 model_checkpoint_fn = os.path.join(model_folder, 'epoch_%02d_model.hdf5' % epoch)
                 model = load_model(model_checkpoint_fn)
                 # input_data_fn = os.path.join(model_folder, '_val_input.npy')
-                input_data_fn = 'drive/MyDrive/ggcnn_tf/_val_input.npy'
+                # input_data_fn = 'drive/MyDrive/ggcnn_tf/_val_input.npy'
+                input_data_fn = '/content/drive/MyDrive/ggcnn_tf/dataset_210301_0839.hdf5'
                 input_data = np.load(input_data_fn)
                 model_output_data = model.predict(input_data)
                 grasp_positions_out = model_output_data[0]
