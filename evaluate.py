@@ -169,7 +169,7 @@ def run():
                 input_data = np.expand_dims(depth_imgs, -1)
                 model_output_data = model.predict(input_data)
                 grasp_positions_out = model_output_data[0]
-                print(grasp_positions_out.shape[0])
+                print(grasp_positions_out.shape)
                 grasp_angles_out = np.arctan2(model_output_data[2], model_output_data[1])/2.0
                 grasp_width_out = model_output_data[3] * 150.0
 
