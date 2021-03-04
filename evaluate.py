@@ -88,7 +88,7 @@ def calculate_iou_matches(grasp_positions_out, grasp_angles_out, ground_truth_bb
     """
     succeeded = []
     failed = []
-    for i in range(4): #range(grasp_positions_out.shape[0]):
+    for i in range(grasp_positions_out.shape[0]):
         grasp_position = grasp_positions_out[i, ].squeeze()
         grasp_angle = grasp_angles_out[i, :, :].squeeze()
 
@@ -136,7 +136,6 @@ def run():
         f = h5py.File(dataset_fn, 'r')
 
         img_ids = np.array(f['test/img_id'])
-        print(img_ids.shape)
         rgb_imgs = np.array(f['test/rgb'])
         depth_imgs = np.array(f['test/depth_inpainted'])
         bbs_all = np.array(f['test/bounding_boxes'])
