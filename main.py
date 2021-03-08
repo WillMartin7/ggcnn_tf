@@ -10,6 +10,7 @@ from skimage.draw import polygon
 from skimage.feature import peak_local_max
 import numpy as np
 import h5py
+import time
 
 interpreter = Interpreter('model_rgb_edgetpu.tflite', experimental_delegates=[load_delegate('libedgetpu.so.1.0')])  # coral
 interpreter.allocate_tensors()
@@ -389,44 +390,50 @@ print("name:", output_details[0]['name'])
 print("shape:", output_details[0]['shape'])
 print("type:", output_details[0]['dtype'])
 
-img = 8
+# img = 1
 
-input_data = rgb_imgs[img] #np.expand_dims(depth_imgs[img], -1)
-# input_data = np.asarray([input_data]) # got to be an easier way
-# print(input_data)
-# input_data = input_data * 127
-input_data = (input_data / input_scale) + input_zero_point
-input_data = np.expand_dims(input_data, axis=0).astype(input_details[0]["dtype"])
-# input_data = np.array(input_data, dtype=np.int8)
-# print(input_data)
-interpreter.set_tensor(input_details[0]['index'], input_data)
+for img in range(10,30):
 
-interpreter.invoke()
+    input_data = rgb_imgs[img] #np.expand_dims(depth_imgs[img], -1)
+    # input_data = np.asarray([input_data]) # got to be an easier way
+    # print(input_data)
+    # input_data = input_data * 127
+    input_data = (input_data / input_scale) + input_zero_point
+    input_data = np.expand_dims(input_data, axis=0).astype(input_details[0]["dtype"])
+    # input_data = np.array(input_data, dtype=np.int8)
+    # print(input_data)
+    start_time = time.time()
+    interpreter.set_tensor(input_details[0]['index'], input_data)
 
-# # # The function `get_tensor()` returns a copy of the tensor data.
-# # # Use `tensor()` in order to get a pointer to the tensor.
-# model_output_data_0 = (interpreter.get_tensor(output_details[0]['index']) - input_zero_point) * input_scale
-# model_output_data_1 = (interpreter.get_tensor(output_details[1]['index']) - input_zero_point) * input_scale
-# model_output_data_2 = (interpreter.get_tensor(output_details[2]['index']) - input_zero_point) * input_scale
-# model_output_data_3 = (interpreter.get_tensor(output_details[3]['index']) - input_zero_point) * input_scale
 
-model_output_data_0 = interpreter.get_tensor(output_details[0]['index']) / 1
-model_output_data_1 = interpreter.get_tensor(output_details[1]['index']) / 1
-model_output_data_2 = interpreter.get_tensor(output_details[2]['index']) / 1
-model_output_data_3 = interpreter.get_tensor(output_details[3]['index']) / 1
+    interpreter.invoke()
 
-# model_output_data_3 = model_output_data_3 / 255
-# norm = np.linalg.norm(model_output_data_3)
-# model_output_data_3 = model_output_data_3/norm
-# print(model_output_data_3)
 
-# grasp_positions_out = model_output_data_1
-# grasp_angles_out = np.arctan2(model_output_data_2, model_output_data_0)/2.0
-# grasp_width_out = model_output_data_3 * 150.0 #becuase image is 300x300
+    # # # The function `get_tensor()` returns a copy of the tensor data.
+    # # # Use `tensor()` in order to get a pointer to the tensor.
+    # model_output_data_0 = (interpreter.get_tensor(output_details[0]['index']) - input_zero_point) * input_scale
+    # model_output_data_1 = (interpreter.get_tensor(output_details[1]['index']) - input_zero_point) * input_scale
+    # model_output_data_2 = (interpreter.get_tensor(output_details[2]['index']) - input_zero_point) * input_scale
+    # model_output_data_3 = (interpreter.get_tensor(output_details[3]['index']) - input_zero_point) * input_scale
 
-grasp_positions_out = model_output_data_0
-grasp_angles_out = np.arctan2(model_output_data_2, model_output_data_1)/2.0
-grasp_width_out = model_output_data_3 #* 150.0 #becuase image is 300x300
+    model_output_data_0 = interpreter.get_tensor(output_details[0]['index']) / 1
+    model_output_data_1 = interpreter.get_tensor(output_details[1]['index']) / 1
+    model_output_data_2 = interpreter.get_tensor(output_details[2]['index']) / 1
+    model_output_data_3 = interpreter.get_tensor(output_details[3]['index']) / 1
+    print("--- %s seconds ---" % (time.time() - start_time))
 
-plot_output(rgb_imgs[img, ], depth_imgs[img, ], grasp_positions_out[0, ].squeeze(), grasp_angles_out[0, ].squeeze(), bbs_all[img, ],
-                                no_grasps=NO_GRASPS, grasp_width_img=grasp_width_out[0, ].squeeze())
+    # model_output_data_3 = model_output_data_3 / 255
+    # norm = np.linalg.norm(model_output_data_3)
+    # model_output_data_3 = model_output_data_3/norm
+    # print(model_output_data_3)
+
+    # grasp_positions_out = model_output_data_1
+    # grasp_angles_out = np.arctan2(model_output_data_2, model_output_data_0)/2.0
+    # grasp_width_out = model_output_data_3 * 150.0 #becuase image is 300x300
+
+    grasp_positions_out = model_output_data_0
+    grasp_angles_out = np.arctan2(model_output_data_2, model_output_data_1)/2.0
+    grasp_width_out = model_output_data_3 #* 150.0 #becuase image is 300x300
+
+    plot_output(rgb_imgs[img, ], depth_imgs[img, ], grasp_positions_out[0, ].squeeze(), grasp_angles_out[0, ].squeeze(), bbs_all[img, ],
+                                    no_grasps=NO_GRASPS, grasp_width_img=grasp_width_out[0, ].squeeze())
