@@ -7,9 +7,12 @@ from tflite_runtime.interpreter import Interpreter
 import matplotlib.pyplot as plt
 from skimage.filters import gaussian
 import numpy as np
+import h5py
 
 interpreter = Interpreter('model_rgb_edgetpu.tflite', experimental_delegates=[load_delegate('libedgetpu.so.1.0')])  # coral
 interpreter.allocate_tensors()
+
+NO_GRASPS = 1
 
 ########################
 
@@ -67,7 +70,7 @@ def plot_output(rgb_img, depth_img, grasp_position_img, grasp_angle_img, ground_
 
 #######################
 
-dataset_fn = 'dataset_210301_0839.hdf5'
+dataset_fn = '/home/pi/Desktop/ggcnn_tf/dataset_210301_0839.hdf5'
 f = h5py.File(dataset_fn, 'r')
 
 img_ids = np.array(f['test/img_id'])
