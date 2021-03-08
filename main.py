@@ -67,6 +67,14 @@ def plot_output(rgb_img, depth_img, grasp_position_img, grasp_angle_img, ground_
 
 #######################
 
+dataset_fn = 'dataset_210301_0839.hdf5'
+f = h5py.File(dataset_fn, 'r')
+
+img_ids = np.array(f['test/img_id'])
+rgb_imgs = np.array(f['test/rgb'])
+depth_imgs = np.array(f['test/depth_inpainted'])
+bbs_all = np.array(f['test/bounding_boxes'])
+
 # Get input and output tensors.
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
